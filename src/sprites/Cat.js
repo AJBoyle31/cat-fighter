@@ -2,10 +2,10 @@ export class Cat extends Phaser.GameObjects.Container {
     constructor(config){
         
         const cat = config.scene.add.sprite(0, 0, 'cat');
-        //const attackArea = new Phaser.Geom.Circle(0, 0, 60);
+        const zone = config.scene.add.zone(0, 10, 20, 20);
         //const attackB = config.scene.add.sprite(0, 0, null);
         
-        super(config.scene, config.x, config.y, [cat]);
+        super(config.scene, config.x, config.y, [cat, zone]);
         
         this.setSize(12, 26);
         
@@ -13,6 +13,7 @@ export class Cat extends Phaser.GameObjects.Container {
         //this.setInteractive(new Phaser.Geom.Circle(this.x, this.y, 10), Phaser.Geom.Circle.Contains);
         
         config.scene.physics.world.enable(this);
+        
         config.scene.add.existing(this);
         
         this.graphics = config.graphics;
@@ -23,6 +24,10 @@ export class Cat extends Phaser.GameObjects.Container {
         this.jumpSpeed = -330;
         this.setScale(2);
         this.cat = cat;
+        this.zone = zone;
+        config.scene.physics.world.enable(this.zone, 0);
+        this.zone.body.setAllowGravity(false);
+        console.log(this.zone);
         //this.body.setSize(12, 26);
         this.body.setOffset(-1, 9);
         //this.attackArea = attackB;
@@ -54,6 +59,7 @@ export class Cat extends Phaser.GameObjects.Container {
     
     
     update(time, delta){
+        
         
         if (!this.alive){
             return;
@@ -230,12 +236,14 @@ export class Cat extends Phaser.GameObjects.Container {
                 break;
             case 'Flyingkick':
                 this.cat.play('catFlyingkick', true);
-                this.setInteractive(new Phaser.Geom.Circle(this.cat.x, this.cat.y, 30), Phaser.Geom.Circle.Contains);
-            
+                /*
+                //this.setInteractive(new Phaser.Geom.Circle(this.cat.x, this.cat.y, 30), Phaser.Geom.Circle.Contains);
+                this.setInteractive(new Phaser.Geom.Rectangle(20, 20, 20, 20), Phaser.Geom.Rectangle.Contains);
+                
                 //  Just to display the hit area, not actually needed to work
                 this.graphics.lineStyle(2, 0x00ffff, 1);
-                this.graphics.strokeCircle(this.input.hitArea.x, this.input.hitArea.y, this.input.hitArea.radius);
-            
+                this.graphics.strokeRect(this.x + 20, this.y + 20, 20, 20);
+                */
                 this.cat.on('animationcomplete-cat' + key, () => {
                     this.movement = true;
                     this.attacking = false;
