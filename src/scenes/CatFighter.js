@@ -23,17 +23,33 @@ class CatFighter extends Phaser.Scene {
         var graphics = this.add.graphics();
         
         this.cat = new Cat({key: 'cat', scene: this, x: 100, y: 400, graphics: graphics});
-        
+
+        this.baddie = this.physics.add.sprite(200, 400, 'baddie');
+        this.baddie.setCollideWorldBounds(true);
+        this.baddie.setVelocityX(100);
+        this.baddie.anims.play('baddieRight', true);
+        this.baddie.setBounce(1,0);
+
         this.catFireballs = this.add.group();
         
         this.physics.add.collider(this.cat, this.platforms);
+        this.physics.add.collider(this.baddie, this.platforms);
+        
     }
     
     update(){
     
         this.cat.update();
+
+        if(this.baddie.body.deltaX() > 1){
+            this.baddie.anims.play('baddieRight', true);
+        } else {
+            this.baddie.anims.play('baddieLeft', true);
+        }
+        
         
     }
+
 }
 
 export default CatFighter;

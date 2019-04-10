@@ -8,6 +8,7 @@ class Preload extends Phaser.Scene {
         this.load.atlas('cat', 'src/assets/catFighterSpritesheet.png', 'src/assets/catfightersprites.json');
         this.load.image('sky', 'src/assets/sky.png');
         this.load.image('ground', 'src/assets/platform.png');
+        this.load.spritesheet('baddie', 'src/assets/baddie.png', {frameWidth: 32, frameHeight: 32});
     }
     
     create(){
@@ -121,6 +122,20 @@ class Preload extends Phaser.Scene {
             key: 'catPunch',
             frames: this.anims.generateFrameNames('cat', {prefix: 'punch', end: 6}),
             frameRate: 7
+        });
+
+        this.anims.create({
+            key: 'baddieLeft',
+            frames: this.anims.generateFrameNumbers('baddie', {start: 0, end: 1}),
+            frameRate: 5,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'baddieRight',
+            frames: this.anims.generateFrameNumbers('baddie', {start: 2, end: 3}),
+            frameRate: 5,
+            repeat: -1
         });
         
         this.scene.start('Menu');

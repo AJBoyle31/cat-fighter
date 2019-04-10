@@ -3,8 +3,7 @@ export class Cat extends Phaser.GameObjects.Container {
         
         const cat = config.scene.add.sprite(0, 0, 'cat');
         const zone = config.scene.add.zone(0, 10, 20, 20);
-        //const attackB = config.scene.add.sprite(0, 0, null);
-        
+                
         super(config.scene, config.x, config.y, [cat, zone]);
         
         this.setSize(12, 26);
@@ -27,7 +26,7 @@ export class Cat extends Phaser.GameObjects.Container {
         this.zone = zone;
         config.scene.physics.world.enable(this.zone, 0);
         this.zone.body.setAllowGravity(false);
-        console.log(this.zone);
+        //console.log(this.zone);
         //this.body.setSize(12, 26);
         this.body.setOffset(-1, 9);
         //this.attackArea = attackB;
