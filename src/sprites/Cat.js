@@ -2,9 +2,8 @@ export class Cat extends Phaser.GameObjects.Container {
     constructor(config){
         
         const cat = config.scene.add.sprite(0, 0, 'cat');
-        const zone = config.scene.add.zone(0, 10, 20, 20);
-                
-        super(config.scene, config.x, config.y, [cat, zone]);
+                        
+        super(config.scene, config.x, config.y, [cat]);
         
         this.setSize(12, 26);
         
@@ -12,21 +11,17 @@ export class Cat extends Phaser.GameObjects.Container {
         //this.setInteractive(new Phaser.Geom.Circle(this.x, this.y, 10), Phaser.Geom.Circle.Contains);
         
         config.scene.physics.world.enable(this);
-        
+
         config.scene.add.existing(this);
-        
-        this.graphics = config.graphics;
-        
+                        
         //Config
         this.alive = true;
         this.speed = 75;
         this.jumpSpeed = -330;
         this.setScale(2);
         this.cat = cat;
-        this.zone = zone;
-        config.scene.physics.world.enable(this.zone, 0);
-        this.zone.body.setAllowGravity(false);
-        //console.log(this.zone);
+        this.body.setCollideWorldBounds(true);
+        
         //this.body.setSize(12, 26);
         this.body.setOffset(-1, 9);
         //this.attackArea = attackB;
@@ -58,7 +53,6 @@ export class Cat extends Phaser.GameObjects.Container {
     
     
     update(time, delta){
-        
         
         if (!this.alive){
             return;
@@ -142,25 +136,6 @@ export class Cat extends Phaser.GameObjects.Container {
         if (this.keyC.isDown){
             this.attackMove('Twoside');
         }
-        
-        
-        /*
-        if (this.keyV.isDown){
-            this.attackMove('Roundkick');
-        }
-        if (this.keyT.isDown){
-            this.attackMove('Punch');
-        }
-        if (this.keyD.isDown){
-            this.attackMove('Lowkick');
-        }
-        if (this.keyZ.isDown){
-            this.attackMove('Highkick');
-        }
-        if (this.keyX.isDown){
-            this.attackMove('Downkick');
-        }
-        */
         
         //catFlyingkick forward motion
         if (this.cat.anims.getCurrentKey() == 'catFlyingkick' && this.cat.anims.getProgress() > 0.5){
