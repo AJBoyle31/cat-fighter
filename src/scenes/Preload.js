@@ -6,6 +6,8 @@ class Preload extends Phaser.Scene {
     preload(){
         
         this.load.atlas('cat', 'src/assets/catFighterSpritesheet.png', 'src/assets/catfightersprites.json');
+        this.load.atlas('cat2', 'src/assets/catFighterSpritesheet2.png', 'src/assets/catFighterSpritesheet2.json');
+        this.load.atlas('energy', 'src/assets/energySpritesheet.png', 'src/assets/energySpritesheet.json');
         this.load.image('sky', 'src/assets/sky.png');
         this.load.image('ground', 'src/assets/platform.png');
         this.load.spritesheet('baddie', 'src/assets/baddie.png', {frameWidth: 32, frameHeight: 32});
@@ -125,6 +127,14 @@ class Preload extends Phaser.Scene {
         });
 
         this.anims.create({
+            key: 'superChargeShot',
+            frames: this.anims.generateFrameNames('cat2', {prefix: 'superShot', start: 11, end: 23}),
+            frameRate: 8
+        });
+
+        
+
+        this.anims.create({
             key: 'baddieLeft',
             frames: this.anims.generateFrameNumbers('baddie', {start: 0, end: 1}),
             frameRate: 5,
@@ -137,6 +147,8 @@ class Preload extends Phaser.Scene {
             frameRate: 5,
             repeat: -1
         });
+
+
         
         this.scene.start('Menu');
     }
