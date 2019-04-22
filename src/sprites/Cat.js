@@ -122,19 +122,19 @@ export class Cat extends Phaser.GameObjects.Container {
             this.attackMove('Roundkick');
         }
         if (this.keyS.isDown){
-            this.attackMove('Flyingkick');
+            this.jumpAttackMove('JumpShotDown');
         }
         if (this.keyD.isDown){
-            this.attackMove('Midkick');
+            this.jumpAttackMove('JumpShotFront');
         }
         if (this.keyZ.isDown){
-            this.attackMove('Spin');
+            this.attackMove('SuperChargeShot');
         }
         if (this.keyX.isDown){
-            this.attackMove('Combo');
+            this.attackMove('PowerShotAir');
         }
         if (this.keyC.isDown){
-            this.attackMove('Twoside');
+            this.attackMove('FastShotAir');
         }
         
         //catFlyingkick forward motion
@@ -175,6 +175,17 @@ export class Cat extends Phaser.GameObjects.Container {
             this.movement = false;
             this.attacking = true;
             this.idle();
+            this.startNewAnim(key);    
+        } else {
+            return;
+        }
+        
+    }
+
+    jumpAttackMove(key){
+        if(this.jumping){
+            this.attacking = true;
+            this.movement = false;  
             this.startNewAnim(key);    
         } else {
             return;
@@ -295,6 +306,51 @@ export class Cat extends Phaser.GameObjects.Container {
                     this.attacking = false;
                 });
                 break;
+            case 'SuperChargeShot':
+                this.cat.play('catSuperChargeShot', true);
+                this.cat.on('animationcomplete-cat' + key, () => {
+                    this.movement = true;
+                    this.attacking = false;
+                });
+                break;
+            case 'PowerShotAir':
+                this.cat.play('catPowerShotAir', true);
+                this.cat.on('animationcomplete-cat' + key, () => {
+                    this.movement = true;
+                    this.attacking = false;
+                });
+                break;
+            case 'FastShotAir':
+                this.cat.play('catFastShotAir', true);
+                this.cat.on('animationcomplete-cat' + key, () => {
+                    this.movement = true;
+                    this.attacking = false;
+                });
+                break;
+            case 'JumpShotFront':
+                if (this.jumping && this.cat.anims.getCurrentKey() !== 'catJumpShotFront'){
+                    this.cat.play('catJumpShotFront', true);
+                    this.cat.on('animationcomplete-cat' + key, () => {
+                        this.movement = true;
+                        this.attacking = false;
+                    });
+                   break;
+                } else {
+                    break;
+                }
+            case 'JumpShotDown':
+                if (this.jumping && this.cat.anims.getCurrentKey() !== 'catJumpShotDown'){
+                    this.cat.play('catJumpShotDown', true);
+                    this.cat.on('animationcomplete-cat' + key, () => {
+                        this.movement = true;
+                        this.attacking = false;
+                    });
+                    break;
+                } else {
+                    break;
+                }
+
+                
         }
         
     }

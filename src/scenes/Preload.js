@@ -127,13 +127,117 @@ class Preload extends Phaser.Scene {
         });
 
         this.anims.create({
-            key: 'superChargeShot',
+            key: 'catSuperChargeShot',
             frames: this.anims.generateFrameNames('cat2', {prefix: 'superShot', start: 11, end: 23}),
             frameRate: 8
         });
+        
+        this.anims.create({
+            key: 'catPowerShotAir',
+            frames: this.anims.generateFrameNames('cat2', {prefix: 'powerShotAir', end: 7}),
+            frameRate: 7
+        });
+        
+        this.anims.create({
+            key: 'catFastShotAir',
+            frames: this.anims.generateFrameNames('cat2', {prefix: 'fastShotAir', end: 6}),
+            frameRate: 7
+        });
+        
+        this.anims.create({
+            key: 'catJumpShotFront',
+            frames: this.anims.generateFrameNames('cat2', {prefix: 'jumpShotFront', end: 6}),
+            frameRate: 13
+        });
+        
+        this.anims.create({
+            key: 'catJumpShotDown',
+            frames: this.anims.generateFrameNames('cat2', {prefix: 'jumpShotDown', end: 6}),
+            frameRate: 13
+        });
+        
+        //ENERGY SHOTS
+        
+        this.anims.create({
+            key: 'catRegShotFront',
+            frames: this.anims.generateFrameNames('energy', {prefix: 'regShotFront', start: 1, end: 4}),
+            frameRate: 7,
+            repeat: -1
+        });
+        
+        this.anims.create({
+            key: 'catRegShotFrontHit',
+            frames: this.anims.generateFrameNames('energy', {prefix: 'regShotFront', start: 5, end: 7}),
+            frameRate: 10
+        });
+        
+        this.anims.create({
+            key: 'catSuperShot',
+            frames: this.anims.generateFrameNames('energy', {prefix: 'superShot', start: 1, end: 4}),
+            frameRate: 7,
+            repeat: -1
+        });
+        
+        this.anims.create({
+            key: 'catSuperShotHit',
+            frames: this.anims.generateFrameNames('energy', {prefix: 'superShot', start: 5, end: 7}),
+            frameRate: 10
+        });
+        
+        this.anims.create({
+            key: 'catRegShotUp',
+            frames: this.anims.generateFrameNames('energy', {prefix: 'regShotUp', start: 1, end: 4}),
+            frameRate: 7,
+            repeat: -1
+        });
+        
+        this.anims.create({
+            key: 'catRegShotUpHit',
+            frames: this.anims.generateFrameNames('energy',{prefix: 'regShotUp', start: 5, end: 7}),
+            frameRate: 10
+        });
+        
+        this.anims.create({
+            key: 'catRegShotDown',
+            frames: this.anims.generateFrameNames('energy', {prefix: 'regShotDown', start: 1, end: 4}),
+            frameRate: 7,
+            repeat: -1
+        });
+        
+        this.anims.create({
+            key: 'catRegShotDownHit',
+            frames: this.anims.generateFrameNames('energy', {prefix: 'regShotDown', start: 5, end: 7}),
+            frameRate: 10
+        });
+        
+        this.anims.create({
+            key: 'catSuperShotFront',
+            frames: this.anims.generateFrameNames('energy', {prefix: 'superShotFront', start: 1, end: 4}),
+            frameRate: 7,
+            repeat: -1
+        });
+        
+        this.anims.create({
+            key: 'catSuperShotFrontHit',
+            frames: this.anims.generateFrameNames('engery', {prefix: 'superShotFront', start: 5, end: 7}),
+            frameRate: 10
+        });
+        
+        this.anims.create({
+            key: 'catSuperShotUp',
+            frames: this.anims.generateFrameNames('energy', {prefix: 'superShotUp', start: 1, end: 4}),
+            frameRate: 7,
+            repeat: -1
+        });
+        
+        this.anims.create({
+            key: 'catSuperShotUpHit',
+            frames: this.anims.generateFrameNames('energy', {prefix: 'superShotUp', start: 5, end: 7}),
+            frameRate: 10
+        });
 
         
-
+        //BADDIE
         this.anims.create({
             key: 'baddieLeft',
             frames: this.anims.generateFrameNumbers('baddie', {start: 0, end: 1}),
