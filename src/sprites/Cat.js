@@ -20,6 +20,8 @@ export class Cat extends Phaser.GameObjects.Sprite {
         this.alive = true;
         this.speed = 95;
         this.jumpSpeed = -330;
+        this.timerShootDelay = 15;
+        this.timerShootTick = this.timerShootDelay - 1;
         this.setScale(2);
         this.body.setCollideWorldBounds(true);
         
@@ -135,8 +137,19 @@ export class Cat extends Phaser.GameObjects.Sprite {
             this.attackMove('FastShotAir');
         }
         if (this.keySpace.isDown){
-            var energyShot = new EnergyShots(this.scene, this.body.x + 15, this.body.y - 15, 'catSuperShotFront');
-            this.scene.energy.add(energyShot);
+            if (this.timerShootTick < this.timerShootDelay){
+                this.timerShootTick = this.timerShootTick + 1
+            } else {
+                var energyShot = new EnergyShots(this.scene, this.body.x + 40, this.body.y + 28, 'catSuperShotFront');
+                this.scene.energy.add(energyShot);
+                energyShot.body.velocity.x = 200;
+                energyShot.body.allowGravity = false;
+                this.timerShootTick = 0;
+                
+            }
+            
+        } else {
+            this.timerShootTick = this.timerShootDelay - 1;
         }
         
         //catFlyingkick forward motion
@@ -345,6 +358,10 @@ export class Cat extends Phaser.GameObjects.Sprite {
                 
         }
         
+    }
+
+    fireSwitch(){
+        this.ableToFire = true;
     }
     
 

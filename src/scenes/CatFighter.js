@@ -26,7 +26,9 @@ class CatFighter extends Level {
         
         this.baddie = new Baddie({key: 'baddie', scene: this, x: 200, y: 400});
 
-        this.energy = this.add.group();
+        this.energy = this.add.group({
+            runChildUpdate: true
+        });
    
         this.initScene(this.cat, this.baddie);
     
@@ -36,6 +38,7 @@ class CatFighter extends Level {
     
         this.cat.update();
         this.baddie.update();
+        
         
     }
 
