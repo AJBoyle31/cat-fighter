@@ -147,10 +147,11 @@ export class Cat extends Phaser.GameObjects.Sprite {
                 this.timerShootTick = 0;
                 
             }
-            
         } else {
             this.timerShootTick = this.timerShootDelay - 1;
         }
+
+
         
         //catFlyingkick forward motion
         if (this.anims.getCurrentKey() == 'catFlyingkick' && this.anims.getProgress() > 0.5){
@@ -206,6 +207,19 @@ export class Cat extends Phaser.GameObjects.Sprite {
             return;
         }
         
+    }
+
+    shootEnergy(key){
+        if (this.timerShootTick < this.timerShootDelay){
+            this.timerShootTick = this.timerShootTick + 1
+        } else {
+            var energyShot = new EnergyShots(this.scene, this.body.x + 40, this.body.y + 28, 'catSuperShotFront');
+            this.scene.energy.add(energyShot);
+            energyShot.body.velocity.x = 200;
+            energyShot.body.allowGravity = false;
+            this.timerShootTick = 0;
+            
+        }
     }
     
     startNewAnim(key){
