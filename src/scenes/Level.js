@@ -1,12 +1,15 @@
 export class Level extends Phaser.Scene {
-    initScene(cat, enemies){
+    initScene(cat, enemies, energy){
         this.cat = cat;
         this.enemies = this.physics.add.group(enemies);
-        this.energy = this.physics.add.group();
+        this.energy = this.physics.add.group(energy);
 
 
         this.physics.add.collider(this.cat, this.platforms);
         this.physics.add.collider(this.baddie, this.platforms);
+        this.physics.add.overlap(this.baddie, this.energy, function(baddie, energy){
+            console.log('energy hit');
+        });
 
         this.physics.add.overlap(this.cat, this.enemies, function(cat, enemy){
             console.log('its a hit');

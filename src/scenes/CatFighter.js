@@ -30,7 +30,7 @@ class CatFighter extends Level {
             runChildUpdate: true
         });
    
-        this.initScene(this.cat, this.baddie);
+        this.initScene(this.cat, this.baddie, this.energy);
     
     }
     

@@ -1,5 +1,5 @@
 import {Entity} from './Entity.js';
-import {EnergyShots, RegularEnergyShot} from './EnergyShots.js';
+import {EnergyShots, RegularEnergyShot, SuperEnergyShot} from './EnergyShots.js';
 
 export class Cat extends Phaser.GameObjects.Sprite {
     constructor(config){
@@ -108,35 +108,36 @@ export class Cat extends Phaser.GameObjects.Sprite {
         if (this.cursors.up.isDown && !this.attacking && this.body.touching.down){
             this.jump();    
         }
-        
-        if (this.keyQ.isDown){
-            this.attackMove('Powershot');
-            this.alreadyShot = false;
-        }
-        if (this.keyW.isDown){
-            this.attackMove('Fastshot');
-        }
-        if (this.keyE.isDown){
-            this.attackMove('Uppercut');
-        }
-        if (this.keyA.isDown){
-            this.attackMove('Roundkick');
-        }
-        if (this.keyS.isDown){
-            this.jumpAttackMove('JumpShotDown');
-        }
-        if (this.keyD.isDown){
-            this.jumpAttackMove('JumpShotFront');
-        }
-        if (this.keyZ.isDown){
-            this.attackMove('SuperChargeShot');
-            this.alreadyShot = false;
-        }
-        if (this.keyX.isDown){
-            this.attackMove('PowerShotAir');
-        }
-        if (this.keyC.isDown){
-            this.attackMove('FastShotAir');
+        if (!this.attacking){
+            if (Phaser.Input.Keyboard.JustDown(this.keyQ)){
+                this.attackMove('Powershot');
+                this.alreadyShot = false;
+            }
+            if (this.keyW.isDown){
+                this.attackMove('Fastshot');
+            }
+            if (this.keyE.isDown){
+                this.attackMove('Uppercut');
+            }
+            if (this.keyA.isDown){
+                this.attackMove('Roundkick');
+            }
+            if (this.keyS.isDown){
+                this.jumpAttackMove('JumpShotDown');
+            }
+            if (this.keyD.isDown){
+                this.jumpAttackMove('JumpShotFront');
+            }
+            if (Phaser.Input.Keyboard.JustDown(this.keyZ)){
+                this.attackMove('SuperChargeShot');
+                this.alreadyShot = false;
+            }
+            if (this.keyX.isDown){
+                this.attackMove('PowerShotAir');
+            }
+            if (this.keyC.isDown){
+                this.attackMove('FastShotAir');
+            }
         }
         /*  FOR TESTING ENERGY SHOTS
         if (this.keySpace.isDown){
@@ -177,12 +178,18 @@ export class Cat extends Phaser.GameObjects.Sprite {
 
         //powershot 
         if(this.anims.getCurrentKey() == 'catPowershot' && this.anims.getProgress() > 0.75){
-            this.shootEnergy('catSuperShotFront');
+            if (!this.alreadyShot){
+                this.alreadyShot = true;
+                this.shootEnergy('catSuperShotFront');
+            }
         }
 
         //superchargeshot
-        if(this.anims.getCurrentKey() == 'catSuperChargeShot' && this.anims.getProgress() > 0.61){
-            this.shootEnergy('catSuperShot');
+        if(this.anims.getCurrentKey() == 'catSuperChargeShot' && this.anims.getProgress() > 0.57){
+            if (!this.alreadyShot){
+                this.alreadyShot = true;
+                this.shootEnergy('catSuperShot');
+            }
         }
         
         
@@ -222,17 +229,17 @@ export class Cat extends Phaser.GameObjects.Sprite {
     }
 
     shootEnergy(key){
-        if (!this.alreadyShot){
+            
             var energyShot = new EnergyShots(this.scene, this.body.x + 40, this.body.y + 28, key);
             this.scene.energy.add(energyShot);
             energyShot.body.velocity.x = 200;
             energyShot.body.allowGravity = false;
+            if (key == 'catSuperShot'){
+                energyShot.body.setSize(28, 28);
+            } else if (key == 'catSuperShotFront'){
+                energyShot.body.setSize(20, 20);
+            }
             this.timerShootTick = 0;
-            this.alreadyShot = true;
-        } else {
-            
-            
-        }
     }
     
     startNewAnim(key){
