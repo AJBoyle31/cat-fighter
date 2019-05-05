@@ -1,5 +1,5 @@
 import {Entity} from './Entity.js';
-import {EnergyShots} from './EnergyShots.js';
+import {EnergyShots, RegularEnergyShot} from './EnergyShots.js';
 
 export class Cat extends Phaser.GameObjects.Sprite {
     constructor(config){
@@ -111,6 +111,7 @@ export class Cat extends Phaser.GameObjects.Sprite {
         
         if (this.keyQ.isDown){
             this.attackMove('Powershot');
+            this.alreadyShot = false;
         }
         if (this.keyW.isDown){
             this.attackMove('Fastshot');
@@ -129,6 +130,7 @@ export class Cat extends Phaser.GameObjects.Sprite {
         }
         if (this.keyZ.isDown){
             this.attackMove('SuperChargeShot');
+            this.alreadyShot = false;
         }
         if (this.keyX.isDown){
             this.attackMove('PowerShotAir');
@@ -136,11 +138,12 @@ export class Cat extends Phaser.GameObjects.Sprite {
         if (this.keyC.isDown){
             this.attackMove('FastShotAir');
         }
+        /*  FOR TESTING ENERGY SHOTS
         if (this.keySpace.isDown){
             if (this.timerShootTick < this.timerShootDelay){
                 this.timerShootTick = this.timerShootTick + 1
             } else {
-                var energyShot = new EnergyShots(this.scene, this.body.x + 40, this.body.y + 28, 'catSuperShotFront');
+                var energyShot = new RegularEnergyShot(this.scene, this.body.x + 40, this.body.y + 28);
                 this.scene.energy.add(energyShot);
                 energyShot.body.velocity.x = 200;
                 energyShot.body.allowGravity = false;
@@ -150,7 +153,7 @@ export class Cat extends Phaser.GameObjects.Sprite {
         } else {
             this.timerShootTick = this.timerShootDelay - 1;
         }
-
+        */
 
         
         //catFlyingkick forward motion
@@ -171,7 +174,16 @@ export class Cat extends Phaser.GameObjects.Sprite {
         if (this.anims.getCurrentKey() == 'catSpin' && this.anims.getProgress() > 0.85){
             this.body.setVelocityX(0);
         }
-        
+
+        //powershot 
+        if(this.anims.getCurrentKey() == 'catPowershot' && this.anims.getProgress() > 0.75){
+            this.shootEnergy('catSuperShotFront');
+        }
+
+        //superchargeshot
+        if(this.anims.getCurrentKey() == 'catSuperChargeShot' && this.anims.getProgress() > 0.61){
+            this.shootEnergy('catSuperShot');
+        }
         
         
     }
@@ -210,14 +222,15 @@ export class Cat extends Phaser.GameObjects.Sprite {
     }
 
     shootEnergy(key){
-        if (this.timerShootTick < this.timerShootDelay){
-            this.timerShootTick = this.timerShootTick + 1
-        } else {
-            var energyShot = new EnergyShots(this.scene, this.body.x + 40, this.body.y + 28, 'catSuperShotFront');
+        if (!this.alreadyShot){
+            var energyShot = new EnergyShots(this.scene, this.body.x + 40, this.body.y + 28, key);
             this.scene.energy.add(energyShot);
             energyShot.body.velocity.x = 200;
             energyShot.body.allowGravity = false;
             this.timerShootTick = 0;
+            this.alreadyShot = true;
+        } else {
+            
             
         }
     }
