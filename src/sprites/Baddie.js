@@ -12,11 +12,16 @@ export class Baddie extends Phaser.GameObjects.Sprite {
         this.anims.play('baddieRight', true);
         this.body.setBounce(1,0);
     }
+
     update(time, delta){
         if(this.body.deltaX() > 1){
             this.anims.play('baddieRight', true);
         } else {
             this.anims.play('baddieLeft', true);
         }
+    }
+
+    destroy(){
+        //you must be destroyed when hit with fireball
     }
 }
