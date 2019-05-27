@@ -3,9 +3,16 @@ export class EnergyShots extends Phaser.GameObjects.Sprite {
         super(scene, x, y, key);
         this.animation = key;
         
-        scene.add.existing(this);
+        //scene.add.existing(this);
+
+        this.scene = scene;
+        this.scene.add.existing(this);
+        this.scene.physics.world.enable(this);
         
         this.speed = Phaser.Math.GetSpeed(300, 1);
+
+        this.body.velocity.x = 200;
+        this.body.allowGravity = false;
         this.anims.play(key, true);
         
     }

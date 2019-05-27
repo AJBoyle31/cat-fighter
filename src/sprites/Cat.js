@@ -230,8 +230,10 @@ export class Cat extends Phaser.GameObjects.Sprite {
 
     shootEnergy(key){
             
+            /*
             var energyShot = new EnergyShots(this.scene, this.body.x + 40, this.body.y + 28, key);
             this.scene.energy.add(energyShot);
+            
             energyShot.body.velocity.x = 200;
             energyShot.body.allowGravity = false;
             if (key == 'catSuperShot'){
@@ -239,6 +241,9 @@ export class Cat extends Phaser.GameObjects.Sprite {
             } else if (key == 'catSuperShotFront'){
                 energyShot.body.setSize(20, 20);
             }
+            */
+
+            var energyShot = new RegularEnergyShot(this.scene, this.body.x + 40, this.body.y + 28, key);
             this.timerShootTick = 0;
     }
     
