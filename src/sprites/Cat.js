@@ -109,33 +109,27 @@ export class Cat extends Phaser.GameObjects.Sprite {
             this.jump();    
         }
         if (!this.attacking){
-            if (Phaser.Input.Keyboard.JustDown(this.keyQ)){
+            if (Phaser.Input.Keyboard.JustDown(this.keyD)){
                 this.attackMove('Powershot');
                 this.alreadyShot = false;
             }
-            if (this.keyW.isDown){
+            if (this.keyF.isDown){
                 this.attackMove('Fastshot');
             }
-            if (this.keyE.isDown){
-                this.attackMove('Uppercut');
-            }
-            if (this.keyA.isDown){
-                this.attackMove('Roundkick');
-            }
-            if (this.keyS.isDown){
+            if (this.keyV.isDown){
                 this.jumpAttackMove('JumpShotDown');
             }
-            if (this.keyD.isDown){
+            if (this.keyG.isDown){
                 this.jumpAttackMove('JumpShotFront');
             }
-            if (Phaser.Input.Keyboard.JustDown(this.keyZ)){
+            if (Phaser.Input.Keyboard.JustDown(this.keyS)){
                 this.attackMove('SuperChargeShot');
                 this.alreadyShot = false;
             }
-            if (this.keyX.isDown){
+            if (this.keyE.isDown){
                 this.attackMove('PowerShotAir');
             }
-            if (this.keyC.isDown){
+            if (this.keyR.isDown){
                 this.attackMove('FastShotAir');
             }
         }
@@ -231,9 +225,19 @@ export class Cat extends Phaser.GameObjects.Sprite {
     shootEnergy(key){
             
         if (key == 'catSuperShot'){
-            var energyShot = new SuperEnergyShot(this.scene, this.body.x + 40, this.body.y + 28);
+            if (this.flipX){
+                var energyShot = new SuperEnergyShot(this.scene, this.body.x - 40, this.body.y + 28, this.flipX);
+            } else {
+                var energyShot = new SuperEnergyShot(this.scene, this.body.x + 40, this.body.y + 28, this.flipX);
+            }
+            
         } else if (key == 'catSuperShotFront'){
-            var energyShot = new RegularEnergyShot(this.scene, this.body.x + 40, this.body.y + 28); 
+            if (this.flipX){
+                var energyShot = new RegularEnergyShot(this.scene, this.body.x - 40, this.body.y + 28, this.flipX); 
+            } else {
+                var energyShot = new RegularEnergyShot(this.scene, this.body.x + 40, this.body.y + 28, this.flipX); 
+            }
+            
         }
             
         this.scene.energy.add(energyShot);
