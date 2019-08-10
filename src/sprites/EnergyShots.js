@@ -1,6 +1,6 @@
 export class EnergyShots extends Phaser.GameObjects.Sprite {
-    constructor(scene, x, y, key, direction){
-        super(scene, x, y, key, direction);
+    constructor(scene, x, y, key){
+        super(scene, x, y, key);
         //this.animation = key;
         
         //scene.add.existing(this);
@@ -46,12 +46,14 @@ export class RegularEnergyShot extends EnergyShots {
 export class SuperEnergyShot extends EnergyShots {
     constructor(scene, x, y, direction){
         super(scene, x, y, 'catSuperShot', direction);
+        
         if (direction){
             this.body.velocity.x = -200;
             this.flipX = true;
         } else {
             this.body.velocity.x = 200;
         }
+       
         this.body.setSize(20, 40);
         this.body.setOffset(25, 12);
         this.anims.play('catSuperShot', true);

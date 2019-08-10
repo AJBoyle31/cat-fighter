@@ -226,16 +226,16 @@ export class Cat extends Phaser.GameObjects.Sprite {
             
         if (key == 'catSuperShot'){
             if (this.flipX){
-                var energyShot = new SuperEnergyShot(this.scene, this.body.x - 40, this.body.y + 28, this.flipX);
+                var energyShot = new SuperEnergyShot(this.scene, this.body.x - 40, this.body.y + 28, true);
             } else {
-                var energyShot = new SuperEnergyShot(this.scene, this.body.x + 40, this.body.y + 28, this.flipX);
+                var energyShot = new SuperEnergyShot(this.scene, this.body.x + 40, this.body.y + 28, false);
             }
             
         } else if (key == 'catSuperShotFront'){
             if (this.flipX){
-                var energyShot = new RegularEnergyShot(this.scene, this.body.x - 40, this.body.y + 28, this.flipX); 
+                var energyShot = new RegularEnergyShot(this.scene, this.body.x - 40, this.body.y + 28, true); 
             } else {
-                var energyShot = new RegularEnergyShot(this.scene, this.body.x + 40, this.body.y + 28, this.flipX); 
+                var energyShot = new RegularEnergyShot(this.scene, this.body.x + 40, this.body.y + 28, false); 
             }
             
         }
