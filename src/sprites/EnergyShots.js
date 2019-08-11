@@ -2,23 +2,23 @@ export class EnergyShots extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y, key){
         super(scene, x, y, key);
         //this.animation = key;
-        
+
         //scene.add.existing(this);
 
         this.scene = scene;
         this.scene.add.existing(this);
         this.scene.physics.world.enable(this);
-        
+
         this.speed = Phaser.Math.GetSpeed(300, 1);
-        
-        
+
+
         this.body.allowGravity = false;
         //this.anims.play(key, true);
-        
+
     }
     update(time, delta){
-        
-    } 
+
+    }
 }
 
 export class RegularEnergyShot extends EnergyShots {
@@ -39,21 +39,21 @@ export class RegularEnergyShot extends EnergyShots {
         this.anims.play('catRegShotFrontHit', true);
         this.on('animationcomplete', () => {
             this.destroy();
-        })
+        });
     }
 }
 
 export class SuperEnergyShot extends EnergyShots {
     constructor(scene, x, y, direction){
         super(scene, x, y, 'catSuperShot', direction);
-        
+
         if (direction){
             this.body.velocity.x = -200;
             this.flipX = true;
         } else {
             this.body.velocity.x = 200;
         }
-       
+
         this.body.setSize(20, 40);
         this.body.setOffset(25, 12);
         this.anims.play('catSuperShot', true);
@@ -64,7 +64,57 @@ export class SuperEnergyShot extends EnergyShots {
         this.anims.play('catSuperShotHit', true);
         this.on('animationcomplete', () => {
             this.destroy();
-        })
+        });
     }
-    
+
+}
+
+export class RegularShotUp extends EnergyShots {
+    constructor(scene, x, y, direction){
+        super(scene, x, y, 'catRegShotUp', direction);
+
+        if (direction){
+            this.body.velocity.x = -200;
+            this.body.velocity.y = -200;
+        } else {
+            this.body.velocity.x = 200;
+            this.body.velocity.y = -200;
+        }
+        this.body.setSize(20,20); //NEED TO ADJUST, BOX NEEDS TO BE SMALLER
+        this.body.setOffset(20,20); //NEED TO ADJUST, BOX NEEDS TO BE SMALLER
+        this.angle = -45; //NEED TO CHECK
+        this.anims.play('catRegShotUp', true);
+    }
+
+    hit(){
+        this.anims.play('catRegShotUpHit', true);
+        this.on('animationcomplete', () => {
+            this.destroy();
+        });
+    }
+}
+
+export class RegularShotDown extends EnergyShots {
+    constructor(scene, x, y, direction){
+        super(scene, x, y, 'catRegShotDown', direction);
+
+        if (direction){
+            this.body.veloxity.x = -200;
+            this.body.velocity.y = 200;
+        } else {
+            this.body.velocity.x = 200;
+            this.body.velocity.y = 200;
+        }
+        this.body.setSize(20,20); //NEED TO ADJUST, BOX NEEDS TO BE SMALLER
+        this.body.setOffset(20,20); //NEED TO ADJUST, BOX NEEDS TO BE SMALLER
+        this.angle = 45; //NEED TO CHECK
+        this.anims.play('catRegShotDown', true);
+    }
+
+    hit(){
+        this.anims.play('catRegShotDown', true);
+        this.on('animationcomplete', () => {
+            this.destroy();
+        });
+    }
 }
