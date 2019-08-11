@@ -1,5 +1,5 @@
 import {Entity} from './Entity.js';
-import {EnergyShots, RegularEnergyShot, SuperEnergyShot} from './EnergyShots.js';
+import {EnergyShots, RegularEnergyShot, SuperEnergyShot, PowerEnergyShot} from './EnergyShots.js';
 
 export class Cat extends Phaser.GameObjects.Sprite {
     constructor(config){
@@ -174,7 +174,7 @@ export class Cat extends Phaser.GameObjects.Sprite {
         if(this.anims.getCurrentKey() == 'catPowershot' && this.anims.getProgress() > 0.75){
             if (!this.alreadyShot){
                 this.alreadyShot = true;
-                this.shootEnergy('catSuperShotFront');
+                this.shootEnergy('catPowerShotFront');
             }
         }
 
@@ -231,13 +231,19 @@ export class Cat extends Phaser.GameObjects.Sprite {
                 var energyShot = new SuperEnergyShot(this.scene, this.body.x + 40, this.body.y + 28, false);
             }
             
-        } else if (key == 'catSuperShotFront'){
+        } else if (key == 'catPowerShotFront'){
+            if (this.flipX){
+                var energyShot = new PowerEnergyShot(this.scene, this.body.x - 40, this.body.y + 28, true); 
+            } else {
+                var energyShot = new PowerEnergyShot(this.scene, this.body.x + 40, this.body.y + 28, false); 
+            }
+            
+        } else if (key == 'catRegShotFront') {
             if (this.flipX){
                 var energyShot = new RegularEnergyShot(this.scene, this.body.x - 40, this.body.y + 28, true); 
             } else {
-                var energyShot = new RegularEnergyShot(this.scene, this.body.x + 40, this.body.y + 28, false); 
+                var energyShot = new RegularEnergyShot(this.scene, this.body.x - 40, this.body.y + 28, true); 
             }
-            
         }
             
         this.scene.energy.add(energyShot);
@@ -252,7 +258,7 @@ export class Cat extends Phaser.GameObjects.Sprite {
             energyShot.body.allowGravity = false;
             if (key == 'catSuperShot'){
                 energyShot.body.setSize(28, 28);
-            } else if (key == 'catSuperShotFront'){
+            } else if (key == 'catPowerShotFront'){
                 energyShot.body.setSize(20, 20);
             }
         */

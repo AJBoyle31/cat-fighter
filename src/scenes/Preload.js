@@ -211,15 +211,15 @@ class Preload extends Phaser.Scene {
         });
         
         this.anims.create({
-            key: 'catSuperShotFront',
+            key: 'catPowerShotFront',
             frames: this.anims.generateFrameNames('energy', {prefix: 'superShotFront', start: 1, end: 4}),
             frameRate: 7,
             repeat: -1
         });
         
         this.anims.create({
-            key: 'catSuperShotFrontHit',
-            frames: this.anims.generateFrameNames('engery', {prefix: 'superShotFront', start: 5, end: 7}),
+            key: 'catPowerShotFrontHit',
+            frames: this.anims.generateFrameNames('energy', {prefix: 'superShotFront', start: 5, end: 7}),
             frameRate: 10
         });
         

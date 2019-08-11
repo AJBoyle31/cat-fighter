@@ -21,6 +21,7 @@ export class EnergyShots extends Phaser.GameObjects.Sprite {
     }
 }
 
+//REGULAR ENERGY SHOT
 export class RegularEnergyShot extends EnergyShots {
     constructor(scene, x, y, direction){
         super(scene, x, y, 'catRegShotFront', direction);
@@ -43,6 +44,29 @@ export class RegularEnergyShot extends EnergyShots {
     }
 }
 
+//POWER ENERGY SHOT
+export class PowerEnergyShot extends EnergyShots {
+    constructor(scene, x, y, direction){
+        super(scene, x, y, 'catPowerShotFront', direction);
+        if (direction){
+            this.body.velocity.x = -200;
+            this.flipX = true;
+        } else {
+            this.body.velocity.x = 200;
+        }
+        this.body.setSize(20, 20);
+        this.anims.play('catPowerShotFront');
+    }
+
+    hit(){
+        this.anims.play('catRegShotFrontHit', true);
+        this.on('animationcomplete', () => {
+            this.destroy();
+        });
+    }
+}
+
+//SUPER ENERGY SHOT
 export class SuperEnergyShot extends EnergyShots {
     constructor(scene, x, y, direction){
         super(scene, x, y, 'catSuperShot', direction);

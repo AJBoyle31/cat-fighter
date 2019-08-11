@@ -39,7 +39,8 @@ class CatFighter extends Level {
     
         this.cat.update();
         this.baddie.update();
-        
+//        console.log(this.energy);
+
         
         
     }
