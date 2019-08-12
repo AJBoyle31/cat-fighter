@@ -38,6 +38,8 @@ export class RegularEnergyShot extends EnergyShots {
     hit(){
         //this.setTexture('catRegShotFrontHit');
         this.anims.play('catRegShotFrontHit', true);
+        this.body.velocity.x = 0;
+        this.body.velocity.y = 0;
         this.on('animationcomplete', () => {
             this.destroy();
         });
@@ -60,6 +62,8 @@ export class PowerEnergyShot extends EnergyShots {
 
     hit(){
         this.anims.play('catRegShotFrontHit', true);
+        this.body.velocity.x = 0;
+        this.body.velocity.y = 0;
         this.on('animationcomplete', () => {
             this.destroy();
         });
@@ -86,6 +90,8 @@ export class SuperEnergyShot extends EnergyShots {
     hit(){
         //this.setTexture('catRegShotFrontHit');
         this.anims.play('catSuperShotHit', true);
+        this.body.velocity.x = 0;
+        this.body.velocity.y = 0;
         this.on('animationcomplete', () => {
             this.destroy();
         });
@@ -93,6 +99,7 @@ export class SuperEnergyShot extends EnergyShots {
 
 }
 
+//REGULAR SHOT UP
 export class RegularShotUp extends EnergyShots {
     constructor(scene, x, y, direction){
         super(scene, x, y, 'catRegShotUp', direction);
@@ -104,20 +111,23 @@ export class RegularShotUp extends EnergyShots {
             this.body.velocity.x = 200;
             this.body.velocity.y = -200;
         }
-        this.body.setSize(20,20); //NEED TO ADJUST, BOX NEEDS TO BE SMALLER
-        this.body.setOffset(20,20); //NEED TO ADJUST, BOX NEEDS TO BE SMALLER
-        this.angle = -45; //NEED TO CHECK
+        this.body.setSize(10,10); 
+        this.body.setOffset(15,7); 
+        this.body.angle = -45; 
         this.anims.play('catRegShotUp', true);
     }
 
     hit(){
         this.anims.play('catRegShotUpHit', true);
+        this.body.velocity.x = 0;
+        this.body.velocity.y = 0;
         this.on('animationcomplete', () => {
             this.destroy();
         });
     }
 }
 
+//REGULAR SHOT DOWN
 export class RegularShotDown extends EnergyShots {
     constructor(scene, x, y, direction){
         super(scene, x, y, 'catRegShotDown', direction);
@@ -137,6 +147,8 @@ export class RegularShotDown extends EnergyShots {
 
     hit(){
         this.anims.play('catRegShotDown', true);
+        this.body.velocity.x = 0;
+        this.body.velocity.y = 0;
         this.on('animationcomplete', () => {
             this.destroy();
         });

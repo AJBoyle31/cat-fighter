@@ -1,5 +1,5 @@
 import {Entity} from './Entity.js';
-import {EnergyShots, RegularEnergyShot, SuperEnergyShot, PowerEnergyShot} from './EnergyShots.js';
+import {EnergyShots, RegularEnergyShot, SuperEnergyShot, PowerEnergyShot, RegularShotUp} from './EnergyShots.js';
 
 export class Cat extends Phaser.GameObjects.Sprite {
     constructor(config){
@@ -34,7 +34,7 @@ export class Cat extends Phaser.GameObjects.Sprite {
         this.jumping = false;
         this.attacking = false;
         
-        //controls
+        //KEYBOARD KEYS DESIGNATOR
         this.cursors = this.scene.input.keyboard.createCursorKeys();
         this.keyQ = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
         this.keyW = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
@@ -50,9 +50,7 @@ export class Cat extends Phaser.GameObjects.Sprite {
         this.keyX = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X);
         this.keyC = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.C);
         this.keyV = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.V);
-        this.keySpace = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-        
-        
+        this.keySpace = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);   
     }
     
     
@@ -69,7 +67,7 @@ export class Cat extends Phaser.GameObjects.Sprite {
             this.body.setOffset(24, 28);
         }
         
-        //Animations Controller
+        //ANIMATIONS CONTROLLER
         if (this.movement){
             if (!this.body.touching.down){
                 this.jumping = true;
@@ -79,7 +77,6 @@ export class Cat extends Phaser.GameObjects.Sprite {
                 this.jumping = false;
                 this.startNewAnim('Walk');
             }
-            
             else if (this.body.velocity.x === 0 && this.body.touching.down){
                 this.jumping = false;
                 this.startNewAnim('Idle');
@@ -90,7 +87,7 @@ export class Cat extends Phaser.GameObjects.Sprite {
         //Tells me what animation is playing
         //console.log(this.anims.getProgress());
         
-        
+        //CAT MOVEMENT CONTROLS
         if (this.movement){
             if (this.cursors.left.isDown){
                 this.body.setVelocityX(-this.speed);
@@ -105,32 +102,42 @@ export class Cat extends Phaser.GameObjects.Sprite {
             }
         }
         
+        //JUMP CONTROL
         if (this.cursors.up.isDown && !this.attacking && this.body.touching.down){
             this.jump();    
         }
+
+        //ENERGY SHOT CONTROLS
         if (!this.attacking){
             if (Phaser.Input.Keyboard.JustDown(this.keyD)){
                 this.attackMove('Powershot');
                 this.alreadyShot = false;
             }
-            if (this.keyF.isDown){
+            if (Phaser.Input.Keyboard.JustDown(this.keyF)){
                 this.attackMove('Fastshot');
+                this.alreadyShot = false;
             }
-            if (this.keyV.isDown){
+            if (Phaser.Input.Keyboard.JustDown(this.keyV)){
                 this.jumpAttackMove('JumpShotDown');
+                this.alreadyShot = false;
             }
-            if (this.keyG.isDown){
+            if (Phaser.Input.Keyboard.JustDown(this.keyG)){
                 this.jumpAttackMove('JumpShotFront');
+                this.alreadyShot = false;
             }
             if (Phaser.Input.Keyboard.JustDown(this.keyS)){
                 this.attackMove('SuperChargeShot');
                 this.alreadyShot = false;
             }
-            if (this.keyE.isDown){
+            //THIS IS SHOOT UP
+            if (Phaser.Input.Keyboard.JustDown(this.keyE)){
                 this.attackMove('PowerShotAir');
+                this.alreadyShot = false;
             }
-            if (this.keyR.isDown){
+            //THIS IS SHOOT UP
+            if (Phaser.Input.Keyboard.JustDown(this.keyR)){
                 this.attackMove('FastShotAir');
+                this.alreadyShot = false;
             }
         }
         /*  FOR TESTING ENERGY SHOTS
@@ -170,19 +177,35 @@ export class Cat extends Phaser.GameObjects.Sprite {
             this.body.setVelocityX(0);
         }
 
-        //powershot 
-        if(this.anims.getCurrentKey() == 'catPowershot' && this.anims.getProgress() > 0.75){
+        //REGULAR SHOT ENERGYSHOT CONTROLLER
+        if (this.anims.getCurrentKey() == 'catFastshot' && this.anims.getProgress() > 0.65){
+            if (!this.alreadyShot){
+                this.alreadyShot = true;
+                this.shootEnergy('catRegShotFront');
+            }
+        }
+
+        //POWER SHOT ENERGYSHOT CONTROLLER 
+        if (this.anims.getCurrentKey() == 'catPowershot' && this.anims.getProgress() > 0.75){
             if (!this.alreadyShot){
                 this.alreadyShot = true;
                 this.shootEnergy('catPowerShotFront');
             }
         }
 
-        //superchargeshot
-        if(this.anims.getCurrentKey() == 'catSuperChargeShot' && this.anims.getProgress() > 0.57){
+        //SUPER SHOT ENERGYSHOT CONTROLLER
+        if (this.anims.getCurrentKey() == 'catSuperChargeShot' && this.anims.getProgress() > 0.57){
             if (!this.alreadyShot){
                 this.alreadyShot = true;
                 this.shootEnergy('catSuperShot');
+            }
+        }
+
+        //REGULAR SHOT AIR
+        if (this.anims.getCurrentKey() == 'catFastShotAir' && this.anims.getProgress() > 0.65){
+            if (!this.alreadyShot){
+                this.alreadyShot = true;
+                this.shootEnergy('catRegShotUp');
             }
         }
         
@@ -222,6 +245,7 @@ export class Cat extends Phaser.GameObjects.Sprite {
         
     }
 
+    //ENERGY SHOT CONTROLLER
     shootEnergy(key){
             
         if (key == 'catSuperShot'){
@@ -238,33 +262,28 @@ export class Cat extends Phaser.GameObjects.Sprite {
                 var energyShot = new PowerEnergyShot(this.scene, this.body.x + 40, this.body.y + 28, false); 
             }
             
-        } else if (key == 'catRegShotFront') {
+        } else if (key == 'catRegShotFront'){
             if (this.flipX){
-                var energyShot = new RegularEnergyShot(this.scene, this.body.x - 40, this.body.y + 28, true); 
+                var energyShot = new RegularEnergyShot(this.scene, this.body.x - 50, this.body.y + 28, true); 
             } else {
-                var energyShot = new RegularEnergyShot(this.scene, this.body.x - 40, this.body.y + 28, true); 
+                var energyShot = new RegularEnergyShot(this.scene, this.body.x + 50, this.body.y + 28, false); 
+            }
+        }
+
+        else if (key == 'catRegShotUp'){
+            if (this.flipX){
+                var energyShot = new RegularShotUp(this.scene, this.body.x - 30, this.body.y + 12, true); 
+            } else {
+                var energyShot = new RegularShotUp(this.scene, this.body.x + 30, this.body.y + 12, false); 
             }
         }
             
         this.scene.energy.add(energyShot);
         this.timerShootTick = 0;
 
-        /*
-        OLD, WILL PROBABLY DELETE
-            var energyShot = new EnergyShots(this.scene, this.body.x + 40, this.body.y + 28, key);
-            this.scene.energy.add(energyShot);
-            
-            energyShot.body.velocity.x = 200;
-            energyShot.body.allowGravity = false;
-            if (key == 'catSuperShot'){
-                energyShot.body.setSize(28, 28);
-            } else if (key == 'catPowerShotFront'){
-                energyShot.body.setSize(20, 20);
-            }
-        */
-
     }
     
+    //ANIMATION CONTROLLER
     startNewAnim(key){
         
         switch(key){
@@ -411,11 +430,10 @@ export class Cat extends Phaser.GameObjects.Sprite {
                 } else {
                     break;
                 }
-
-                
         }
         
     }
+    //END ANIMATION CONTROLLER
 
     fireSwitch(){
         this.ableToFire = true;
