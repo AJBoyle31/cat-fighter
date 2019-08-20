@@ -13,6 +13,7 @@ export class Level extends Phaser.Scene {
         this.physics.add.overlap(this.baddie, this.energy, function(baddie, energy){
             console.log('energy hit');
             energy.hit();
+            baddie.kill();
         });
         this.physics.add.collider(this.energy, this.platforms, function(energy){
             energy.hit();
@@ -20,6 +21,7 @@ export class Level extends Phaser.Scene {
 
         this.physics.add.overlap(this.cat, this.enemies, function(cat, enemy){
             console.log('its a hit');
+        
         });
     }
 

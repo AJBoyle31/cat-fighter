@@ -105,17 +105,20 @@ export class SuperEnergyShot extends EnergyShots {
 export class RegularShotUp extends EnergyShots {
     constructor(scene, x, y, direction){
         super(scene, x, y, 'catRegShotUp', direction);
-        this.speed = 200;
+        this.speed = 150;
         if (direction){
             this.body.velocity.x = -this.speed;
             this.body.velocity.y = -this.speed;
+            this.flipX = true;
+            this.body.setSize(10,10);
+            this.body.setOffset(7,7);
         } else {
             this.body.velocity.x = this.speed;
             this.body.velocity.y = -this.speed;
+            this.body.setSize(10,10);
+            this.body.setOffset(15,7);
         }
-        this.body.setSize(10,10);
-        this.body.setOffset(15,7);
-        this.body.angle = -45;
+        
         this.anims.play('catRegShotUp', true);
     }
 
@@ -135,14 +138,18 @@ export class PowerShotUp extends EnergyShots {
         super(scene, x, y, 'catSuperShotUp', direction);
         this.speed = 200;
         if (direction){
+            this.flipX = true;
             this.body.velocity.x = -this.speed;
             this.body.velocity.y = -this.speed;
+            this.body.setSize(20,20); //NEED TO ADJUST
+            this.body.setOffset(20,20); //NEED TO ADJUST
         } else {
             this.body.velocity.x = this.speed;
-            this.body.velocity.y = this.speed;
+            this.body.velocity.y = -this.speed;
+            this.body.setSize(20,20); //NEED TO ADJUST
+            this.body.setOffset(20,20); //NEED TO ADJUST
         }
-        this.body.setSize(20,20); //NEED TO ADJUST
-        this.body.setOffset(20,20); //NEED TO ADJUST
+        
         this.body.angle = -45;
         this.anims.play('catSuperShotUp', true);
     }

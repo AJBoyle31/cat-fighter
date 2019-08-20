@@ -1,5 +1,5 @@
 import {Entity} from './Entity.js';
-import {EnergyShots, RegularEnergyShot, SuperEnergyShot, PowerEnergyShot, RegularShotUp} from './EnergyShots.js';
+import {RegularEnergyShot, SuperEnergyShot, PowerEnergyShot, RegularShotUp, PowerShotUp, RegularShotDown} from './EnergyShots.js';
 
 export class Cat extends Phaser.GameObjects.Sprite {
     constructor(config){
@@ -211,10 +211,10 @@ export class Cat extends Phaser.GameObjects.Sprite {
         }
 
         //POWER SHOT UP (need to adjust progress)
-        if (this.anims.getCurrentKey() == 'catPowerShotAir' && this.anims.getProgress() > 0.65){
+        if (this.anims.getCurrentKey() == 'catPowerShotAir' && this.anims.getProgress() > 0.75){
             if (!this.alreadyShot){
                 this.alreadyShot = true;
-                this.shootEnergy('')
+                this.shootEnergy('catSuperShotAir');
             }
         }
 
@@ -298,12 +298,12 @@ export class Cat extends Phaser.GameObjects.Sprite {
 
         else if (key == 'catRegShotUp'){
             if (this.flipX){
-                var energyShot = new RegularShotUp(this.scene, this.body.x - 30, this.body.y + 12, true);
+                var energyShot = new RegularShotUp(this.scene, this.body.x , this.body.y + 20, true);
             } else {
-                var energyShot = new RegularShotUp(this.scene, this.body.x + 30, this.body.y + 12, false);
+                var energyShot = new RegularShotUp(this.scene, this.body.x + 30, this.body.y + 20, false);
             }
 
-        } else if (key == 'catPowerShotAir'){
+        } else if (key == 'catSuperShotAir'){
             if (this.flipX){
                 var energyShot = new PowerShotUp(this.scene, this.body.x - 30, this.body.y + 12, true);
             } else {

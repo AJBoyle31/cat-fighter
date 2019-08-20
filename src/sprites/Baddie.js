@@ -21,7 +21,7 @@ export class Baddie extends Phaser.GameObjects.Sprite {
         }
     }
 
-    destroy(){
-        //you must be destroyed when hit with fireball
+    kill(){
+        //this.destroy();
     }
 }
