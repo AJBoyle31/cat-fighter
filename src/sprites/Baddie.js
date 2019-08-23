@@ -11,17 +11,22 @@ export class Baddie extends Phaser.GameObjects.Sprite {
         this.body.setVelocityX(100);
         this.anims.play('baddieRight', true);
         this.body.setBounce(1,0);
+
+        this.alive = true;
     }
 
     update(time, delta){
-        if(this.body.deltaX() > 1){
-            this.anims.play('baddieRight', true);
-        } else {
-            this.anims.play('baddieLeft', true);
+        if (this.alive){
+            if(this.body.deltaX() > 1){
+                this.anims.play('baddieRight', true);
+            } else {
+                this.anims.play('baddieLeft', true);
+            }
         }
     }
 
     kill(){
-        //this.destroy();
+        this.alive = false;
+        this.destroy();
     }
 }

@@ -18,14 +18,14 @@ class Preload extends Phaser.Scene {
         this.anims.create({
             key: 'catIdle',
             frames: this.anims.generateFrameNames('cat', {prefix: 'idle', end: 5}),
-            frameRate: 7,
+            frameRate: 8,
             repeat: -1
         });
         
         this.anims.create({
             key: 'catWalk',
             frames: this.anims.generateFrameNames('cat', {prefix: 'walk', end: 9}),
-            frameRate: 7,
+            frameRate: 8,
             repeat: -1
         });
         

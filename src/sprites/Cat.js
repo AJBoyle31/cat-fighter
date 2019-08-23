@@ -18,7 +18,7 @@ export class Cat extends Phaser.GameObjects.Sprite {
 
         //Config
         this.alive = true;
-        this.speed = 95;
+        this.speed = 115;
         this.jumpSpeed = -330;
         this.timerShootDelay = 15;
         this.timerShootTick = this.timerShootDelay - 1;
@@ -283,14 +283,14 @@ export class Cat extends Phaser.GameObjects.Sprite {
 
         } else if (key == 'catPowerShotFront'){
             if (this.flipX){
-                var energyShot = new PowerEnergyShot(this.scene, this.body.x - 40, this.body.y + 28, true);
+                var energyShot = new PowerEnergyShot(this.scene, this.body.x - 20, this.body.y + 28, true);
             } else {
                 var energyShot = new PowerEnergyShot(this.scene, this.body.x + 40, this.body.y + 28, false);
             }
 
         } else if (key == 'catRegShotFront'){
             if (this.flipX){
-                var energyShot = new RegularEnergyShot(this.scene, this.body.x - 50, this.body.y + 28, true);
+                var energyShot = new RegularEnergyShot(this.scene, this.body.x - 30, this.body.y + 28, true);
             } else {
                 var energyShot = new RegularEnergyShot(this.scene, this.body.x + 50, this.body.y + 28, false);
             }
@@ -305,15 +305,15 @@ export class Cat extends Phaser.GameObjects.Sprite {
 
         } else if (key == 'catSuperShotAir'){
             if (this.flipX){
-                var energyShot = new PowerShotUp(this.scene, this.body.x - 30, this.body.y + 12, true);
+                var energyShot = new PowerShotUp(this.scene, this.body.x - 12, this.body.y + 7, true);
             } else {
                 var energyShot = new PowerShotUp(this.scene, this.body.x + 30, this.body.y + 12, false);
             }
         } else if (key == 'catRegShotDown'){
             if (this.flipX){
-                var energyShot = new RegularShotDown(this.scene, this.body.x - 30, this.body.y + 12, true);
+                var energyShot = new RegularShotDown(this.scene, this.body.x - 20, this.body.y + 35, true);
             } else {
-                var energyShot = new RegularShotDown(this.scene, this.body.x + 30, this.body.y + 12, false);
+                var energyShot = new RegularShotDown(this.scene, this.body.x + 45, this.body.y + 35, false);
             }
         }
 

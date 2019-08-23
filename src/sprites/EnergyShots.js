@@ -26,13 +26,15 @@ export class RegularEnergyShot extends EnergyShots {
     constructor(scene, x, y, direction){
         super(scene, x, y, 'catRegShotFront', direction);
         this.speed = 200;
+        this.body.setSize(9, 9);
         if (direction){
-            this.body.velocity.x = -this.speed;
             this.flipX = true;
+            this.body.velocity.x = -this.speed;
+            this.body.setOffset(7, 12);
         } else {
             this.body.velocity.x = this.speed;
+            this.body.setOffset(15, 12);
         }
-        this.body.setSize(20, 20);
         this.anims.play('catRegShotFront');
     }
 
@@ -52,13 +54,15 @@ export class PowerEnergyShot extends EnergyShots {
     constructor(scene, x, y, direction){
         super(scene, x, y, 'catPowerShotFront', direction);
         this.speed = 200;
+        this.body.setSize(11, 11);
         if (direction){
-            this.body.velocity.x = -this.speed;
             this.flipX = true;
+            this.body.velocity.x = -this.speed;
+            this.body.setOffset(8,11);
         } else {
             this.body.velocity.x = this.speed;
+            this.body.setOffset(13,11);
         }
-        this.body.setSize(20, 20);
         this.anims.play('catPowerShotFront');
     }
 
@@ -76,16 +80,16 @@ export class PowerEnergyShot extends EnergyShots {
 export class SuperEnergyShot extends EnergyShots {
     constructor(scene, x, y, direction){
         super(scene, x, y, 'catSuperShot', direction);
-        this.speed = 200;
+        this.speed = 100;
+        this.body.setSize(16, 18);
         if (direction){
-            this.body.velocity.x = -this.speed;
             this.flipX = true;
+            this.body.velocity.x = -this.speed;
+            this.body.setOffset(21, 23);    
         } else {
             this.body.velocity.x = this.speed;
+            this.body.setOffset(27, 23);
         }
-
-        this.body.setSize(20, 40);
-        this.body.setOffset(25, 12);
         this.anims.play('catSuperShot', true);
     }
 
@@ -106,16 +110,15 @@ export class RegularShotUp extends EnergyShots {
     constructor(scene, x, y, direction){
         super(scene, x, y, 'catRegShotUp', direction);
         this.speed = 150;
+        this.body.setSize(10,10);
         if (direction){
             this.body.velocity.x = -this.speed;
             this.body.velocity.y = -this.speed;
             this.flipX = true;
-            this.body.setSize(10,10);
             this.body.setOffset(7,7);
         } else {
             this.body.velocity.x = this.speed;
             this.body.velocity.y = -this.speed;
-            this.body.setSize(10,10);
             this.body.setOffset(15,7);
         }
         
@@ -137,20 +140,17 @@ export class PowerShotUp extends EnergyShots {
     constructor(scene, x, y, direction){
         super(scene, x, y, 'catSuperShotUp', direction);
         this.speed = 200;
+        this.body.setSize(11,11); 
         if (direction){
             this.flipX = true;
             this.body.velocity.x = -this.speed;
             this.body.velocity.y = -this.speed;
-            this.body.setSize(20,20); //NEED TO ADJUST
-            this.body.setOffset(20,20); //NEED TO ADJUST
+            this.body.setOffset(8,8); 
         } else {
             this.body.velocity.x = this.speed;
             this.body.velocity.y = -this.speed;
-            this.body.setSize(20,20); //NEED TO ADJUST
-            this.body.setOffset(20,20); //NEED TO ADJUST
+            this.body.setOffset(13,8);
         }
-        
-        this.body.angle = -45;
         this.anims.play('catSuperShotUp', true);
     }
     hit(){
@@ -167,17 +167,19 @@ export class PowerShotUp extends EnergyShots {
 export class RegularShotDown extends EnergyShots {
     constructor(scene, x, y, direction){
         super(scene, x, y, 'catRegShotDown', direction);
-        this.speed = 200;
+        this.speed = 150;
+        this.body.setSize(8,8);
         if (direction){
-            this.body.veloxity.x = -this.speed;
+            this.flipX = true;
+            this.body.velocity.x = -this.speed;
             this.body.velocity.y = this.speed;
+            this.body.setOffset(8,16); //NEED TO ADJUST, BOX NEEDS TO BE SMALLER
         } else {
             this.body.velocity.x = this.speed;
             this.body.velocity.y = this.speed;
+            this.body.setOffset(16,16); //NEED TO ADJUST, BOX NEEDS TO BE SMALLER
         }
-        this.body.setSize(20,20); //NEED TO ADJUST, BOX NEEDS TO BE SMALLER
-        this.body.setOffset(20,20); //NEED TO ADJUST, BOX NEEDS TO BE SMALLER
-        this.angle = 45; //NEED TO CHECK
+        
         this.anims.play('catRegShotDown', true);
     }
 
