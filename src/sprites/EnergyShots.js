@@ -80,7 +80,7 @@ export class PowerEnergyShot extends EnergyShots {
 export class SuperEnergyShot extends EnergyShots {
     constructor(scene, x, y, direction){
         super(scene, x, y, 'catSuperShot', direction);
-        this.speed = 100;
+        this.speed = 250;
         this.body.setSize(16, 18);
         if (direction){
             this.flipX = true;

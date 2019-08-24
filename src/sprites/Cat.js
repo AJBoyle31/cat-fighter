@@ -25,7 +25,7 @@ export class Cat extends Phaser.GameObjects.Sprite {
         this.setScale(2);
         this.body.setCollideWorldBounds(true);
 
-        this.body.setSize(13, 26);
+        this.body.setSize(10, 26);
         //this.body.setOffset(-1, 9);
         //this.attackArea = attackB;
 
@@ -36,21 +36,15 @@ export class Cat extends Phaser.GameObjects.Sprite {
 
         //KEYBOARD KEYS DESIGNATOR
         this.cursors = this.scene.input.keyboard.createCursorKeys();
-        this.keyQ = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
-        this.keyW = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         this.keyE = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
         this.keyR = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
-        this.keyT = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.T);
-        this.keyA = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.keyS = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         this.keyD = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         this.keyF = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
         this.keyG = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.G);
-        this.keyZ = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
-        this.keyX = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X);
-        this.keyC = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.C);
         this.keyV = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.V);
-        this.keySpace = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        this.keyA = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+        
     }
 
 
@@ -62,9 +56,9 @@ export class Cat extends Phaser.GameObjects.Sprite {
 
         //Cat facing direction and physics body
         if (this.flipX){
-            this.body.setOffset(27, 28);
+            this.body.setOffset(28, 28);
         } else {
-            this.body.setOffset(24, 28);
+            this.body.setOffset(26, 28);
         }
 
         //ANIMATIONS CONTROLLER
@@ -139,44 +133,12 @@ export class Cat extends Phaser.GameObjects.Sprite {
                 this.attackMove('FastShotAir');
                 this.alreadyShot = false;
             }
-        }
-        /*  FOR TESTING ENERGY SHOTS
-        if (this.keySpace.isDown){
-            if (this.timerShootTick < this.timerShootDelay){
-                this.timerShootTick = this.timerShootTick + 1
-            } else {
-                var energyShot = new RegularEnergyShot(this.scene, this.body.x + 40, this.body.y + 28);
-                this.scene.energy.add(energyShot);
-                energyShot.body.velocity.x = 200;
-                energyShot.body.allowGravity = false;
-                this.timerShootTick = 0;
-
+            //TWO SIDE SHOT
+            if (Phaser.Input.Keyboard.JustDown(this.keyA)){
+                this.attackMove('Twoside');
+                this.alreadyShot = false;
             }
-        } else {
-            this.timerShootTick = this.timerShootDelay - 1;
         }
-        */
-
-        /*
-        //catFlyingkick forward motion
-        if (this.anims.getCurrentKey() == 'catFlyingkick' && this.anims.getProgress() > 0.5){
-            this.body.setVelocityX(this.flipX ? -this.speed : this.speed);
-        }
-
-        //catUppercut jump
-        if (this.anims.getCurrentKey() == 'catUppercut' && this.anims.getProgress() > 0.4 && this.body.touching.down){
-            this.body.setVelocityY(-140);
-            //this.anims.pause();
-        }
-
-        //catSpin forward motion
-        if (this.anims.getCurrentKey() == 'catSpin' && this.anims.getProgress() > 0.3){
-            this.body.setVelocityX(this.flipX ? -this.speed : this.speed);
-        }
-        if (this.anims.getCurrentKey() == 'catSpin' && this.anims.getProgress() > 0.85){
-            this.body.setVelocityX(0);
-        }
-        */
 
         //REGULAR SHOT ENERGYSHOT CONTROLLER
         if (this.anims.getCurrentKey() == 'catFastshot' && this.anims.getProgress() > 0.65){
@@ -210,7 +172,7 @@ export class Cat extends Phaser.GameObjects.Sprite {
             }
         }
 
-        //POWER SHOT UP (need to adjust progress)
+        //POWER SHOT UP 
         if (this.anims.getCurrentKey() == 'catPowerShotAir' && this.anims.getProgress() > 0.75){
             if (!this.alreadyShot){
                 this.alreadyShot = true;
@@ -234,7 +196,21 @@ export class Cat extends Phaser.GameObjects.Sprite {
             }
         }
 
+        //JUMP SHOT FRONT
+        if (this.anims.getCurrentKey() == 'catJumpShotFront' && this.anims.getProgress() > 0.65){
+            if (!this.alreadyShot){
+                this.alreadyShot = true;
+                this.shootEnergy('catRegShotFront');
+            }
+        }
 
+        //TWO SIDE SHOT
+        if (this.anims.getCurrentKey() == 'catTwoside' && this.anims.getProgress() > 0.65){
+            if (!this.alreadyShot){
+                this.alreadyShot = true;
+                this.shootEnergy('catTwosideShot');
+            }
+        }
 
     }
     //END UPDATE
@@ -257,7 +233,6 @@ export class Cat extends Phaser.GameObjects.Sprite {
         } else {
             return;
         }
-
     }
 
     jumpAttackMove(key){
@@ -268,56 +243,63 @@ export class Cat extends Phaser.GameObjects.Sprite {
         } else {
             return;
         }
-
     }
 
     //ENERGY SHOT CONTROLLER
     shootEnergy(key){
 
         if (key == 'catSuperShot'){
+            var energyShot;
             if (this.flipX){
-                var energyShot = new SuperEnergyShot(this.scene, this.body.x - 40, this.body.y + 28, true);
+                energyShot = new SuperEnergyShot(this.scene, this.body.x - 40, this.body.y + 28, true);
             } else {
-                var energyShot = new SuperEnergyShot(this.scene, this.body.x + 40, this.body.y + 28, false);
+                energyShot = new SuperEnergyShot(this.scene, this.body.x + 40, this.body.y + 28, false);
             }
 
         } else if (key == 'catPowerShotFront'){
             if (this.flipX){
-                var energyShot = new PowerEnergyShot(this.scene, this.body.x - 20, this.body.y + 28, true);
+                energyShot = new PowerEnergyShot(this.scene, this.body.x - 20, this.body.y + 28, true);
             } else {
-                var energyShot = new PowerEnergyShot(this.scene, this.body.x + 40, this.body.y + 28, false);
+                energyShot = new PowerEnergyShot(this.scene, this.body.x + 40, this.body.y + 28, false);
             }
 
         } else if (key == 'catRegShotFront'){
             if (this.flipX){
-                var energyShot = new RegularEnergyShot(this.scene, this.body.x - 30, this.body.y + 28, true);
+                energyShot = new RegularEnergyShot(this.scene, this.body.x - 30, this.body.y + 28, true);
             } else {
-                var energyShot = new RegularEnergyShot(this.scene, this.body.x + 50, this.body.y + 28, false);
+                energyShot = new RegularEnergyShot(this.scene, this.body.x + 50, this.body.y + 28, false);
             }
         }
 
         else if (key == 'catRegShotUp'){
             if (this.flipX){
-                var energyShot = new RegularShotUp(this.scene, this.body.x , this.body.y + 20, true);
+                energyShot = new RegularShotUp(this.scene, this.body.x , this.body.y + 20, true);
             } else {
-                var energyShot = new RegularShotUp(this.scene, this.body.x + 30, this.body.y + 20, false);
+                energyShot = new RegularShotUp(this.scene, this.body.x + 30, this.body.y + 20, false);
             }
 
         } else if (key == 'catSuperShotAir'){
             if (this.flipX){
-                var energyShot = new PowerShotUp(this.scene, this.body.x - 12, this.body.y + 7, true);
+                energyShot = new PowerShotUp(this.scene, this.body.x - 12, this.body.y + 7, true);
             } else {
-                var energyShot = new PowerShotUp(this.scene, this.body.x + 30, this.body.y + 12, false);
+                energyShot = new PowerShotUp(this.scene, this.body.x + 30, this.body.y + 12, false);
             }
         } else if (key == 'catRegShotDown'){
             if (this.flipX){
-                var energyShot = new RegularShotDown(this.scene, this.body.x - 20, this.body.y + 35, true);
+                energyShot = new RegularShotDown(this.scene, this.body.x - 20, this.body.y + 35, true);
             } else {
-                var energyShot = new RegularShotDown(this.scene, this.body.x + 45, this.body.y + 35, false);
+                energyShot = new RegularShotDown(this.scene, this.body.x + 45, this.body.y + 35, false);
             }
+        } else if (key == 'catTwosideShot'){
+            var energyShotLeft = new RegularEnergyShot(this.scene, this.body.x - 20, this.body.y + 28, true);
+            var energyShotRight = new RegularEnergyShot(this.scene, this.body.x + 35, this.body.y + 28, false);
+            this.scene.energy.addMultiple([energyShotLeft, energyShotRight]);
         }
 
-        this.scene.energy.add(energyShot);
+        if (key !== 'catTwosideShot'){
+            this.scene.energy.add(energyShot);
+        }
+        
         this.timerShootTick = 0;
 
     }
@@ -349,78 +331,8 @@ export class Cat extends Phaser.GameObjects.Sprite {
                     this.attacking = false;
                 });
                 break;
-            case 'Flyingkick':
-                this.play('catFlyingkick', true);
-                this.on('animationcomplete-cat' + key, () => {
-                    this.movement = true;
-                    this.attacking = false;
-                });
-                break;
-            case 'Spin':
-                this.play('catSpin', true);
-                this.on('animationcomplete-cat' + key, () => {
-                    this.movement = true;
-                    this.attacking = false;
-                });
-                break;
-            case 'Uppercut':
-                this.play('catUppercut', true);
-                this.on('animationcomplete-cat' + key, () => {
-                    this.movement = true;
-                    this.attacking = false;
-                });
-                break;
-            case 'Combo':
-                this.play('catCombo', true);
-                this.on('animationcomplete-cat' + key, () => {
-                    this.movement = true;
-                    this.attacking = false;
-                });
-                break;
-            case 'Lowkick':
-                this.play('catLowkick', true);
-                this.on('animationcomplete-cat' + key, () => {
-                    this.movement = true;
-                    this.attacking = false;
-                });
-                break;
-            case 'Midkick':
-                this.play('catMidkick', true);
-                this.on('animationcomplete-cat' + key, () => {
-                    this.movement = true;
-                    this.attacking = false;
-                });
-                break;
-            case 'Highkick':
-                this.play('catHighkick', true);
-                this.on('animationcomplete-cat' + key, () => {
-                    this.movement = true;
-                    this.attacking = false;
-                });
-                break;
-            case 'Downkick':
-                this.play('catDownkick', true);
-                this.on('animationcomplete-cat' + key, () => {
-                    this.movement = true;
-                    this.attacking = false;
-                });
-                break;
             case 'Twoside':
                 this.play('catTwoside', true);
-                this.on('animationcomplete-cat' + key, () => {
-                    this.movement = true;
-                    this.attacking = false;
-                });
-                break;
-            case 'Roundkick':
-                this.play('catRoundkick', true);
-                this.on('animationcomplete-cat' + key, () => {
-                    this.movement = true;
-                    this.attacking = false;
-                });
-                break;
-            case 'Punch':
-                this.play('catPunch', true);
                 this.on('animationcomplete-cat' + key, () => {
                     this.movement = true;
                     this.attacking = false;
@@ -454,7 +366,7 @@ export class Cat extends Phaser.GameObjects.Sprite {
                         this.movement = true;
                         this.attacking = false;
                     });
-                   break;
+                break;
                 } else {
                     break;
                 }
@@ -474,18 +386,5 @@ export class Cat extends Phaser.GameObjects.Sprite {
     }
     //END ANIMATION CONTROLLER
 
-    fireSwitch(){
-        this.ableToFire = true;
-    }
-
-
 }
 
-/*
-class CatFireball extends Phaser.GameObjects.Sprite {
-    constructor(scene, x, y){
-        super(scene, x, y, 'catFireball');
-        this.body.setVelocityX(200);
-    }
-}
-*/
