@@ -53,7 +53,7 @@ export class Cat extends Phaser.GameObjects.Sprite {
         if (!this.alive){
             return;
         }
-
+        
         //Cat facing direction and physics body
         if (this.flipX){
             this.body.setOffset(28, 28);
@@ -63,15 +63,15 @@ export class Cat extends Phaser.GameObjects.Sprite {
 
         //ANIMATIONS CONTROLLER
         if (this.movement){
-            if (!this.body.touching.down){
+            if (!this.body.blocked.down){
                 this.jumping = true;
                 this.startNewAnim('Jump');
             }
-            else if (this.body.velocity.x !== 0 && this.body.touching.down){
+            else if (this.body.velocity.x !== 0 && this.body.blocked.down){
                 this.jumping = false;
                 this.startNewAnim('Walk');
             }
-            else if (this.body.velocity.x === 0 && this.body.touching.down){
+            else if (this.body.velocity.x === 0 && this.body.blocked.down){
                 this.jumping = false;
                 this.startNewAnim('Idle');
             }
@@ -97,7 +97,7 @@ export class Cat extends Phaser.GameObjects.Sprite {
         }
 
         //JUMP CONTROL
-        if (this.cursors.up.isDown && !this.attacking && this.body.touching.down){
+        if (this.cursors.up.isDown && !this.attacking && this.body.blocked.down){
             this.jump();
         }
 

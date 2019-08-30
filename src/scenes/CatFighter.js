@@ -10,20 +10,20 @@ class CatFighter extends Level {
     }
     
     preload(){
-        this.load.image('tiles', 'src/assets/nature-paltformer-tileset-16x16.png');
-        this.load.tilemapTiledJSON('testmap', 'src/assets/test-level-1.json');
+        this.load.image('tiles', 'src/assets/tileset-16x16.png');
+        this.load.tilemapTiledJSON('testmap', 'src/assets/level-1.json');
     }
     
     create(){
         
         this.map = this.make.tilemap({key: 'testmap'});
-        this.tileset = this.map.addTilesetImage('nature-paltformer-tileset-16x16', 'tiles');
+        this.tileset = this.map.addTilesetImage('tileset-16x16', 'tiles');
         
-        this.sky = this.map.createStaticLayer('Sky', this.tileset);
-        this.ledgeBases = this.map.createStaticLayer('LedgeBases', this.tileset);
-        this.platforms = this.map.createDynamicLayer('Platforms', this.tileset);
+        this.sky = this.map.createStaticLayer('Background', this.tileset);
+        this.ledgeBases = this.map.createStaticLayer('Midground', this.tileset);
+        this.platforms = this.map.createDynamicLayer('Foreground', this.tileset);
 
-        this.map.setCollision([ 0,1,2 ]);
+        this.map.setCollision([ 0,1,2,42 ]);
         
         this.cat = new Cat({key: 'cat', scene: this, x: 100, y: 100});
         
