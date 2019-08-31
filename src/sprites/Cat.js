@@ -22,7 +22,8 @@ export class Cat extends Phaser.GameObjects.Sprite {
         this.jumpSpeed = -330;
         this.timerShootDelay = 15;
         this.timerShootTick = this.timerShootDelay - 1;
-        this.setScale(2);
+        //this.setScale(1.5);
+        console.log(this.body);
         this.body.setCollideWorldBounds(true);
 
         this.body.setSize(10, 26);

@@ -4,7 +4,7 @@ export class Level extends Phaser.Scene {
         this.enemies = this.physics.add.group(enemies);
         this.energy = this.add.group(energy);
         
-        console.log(this.energy);
+        //console.log(this.energy);
 
         
 
