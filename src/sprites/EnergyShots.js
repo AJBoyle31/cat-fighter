@@ -11,9 +11,10 @@ export class EnergyShots extends Phaser.GameObjects.Sprite {
 
         this.speed = Phaser.Math.GetSpeed(300, 1);
 
-
+        this.setScale(0.5);
         this.body.allowGravity = false;
         //this.anims.play(key, true);
+        
 
     }
     update(time, delta){
@@ -82,6 +83,7 @@ export class SuperEnergyShot extends EnergyShots {
         super(scene, x, y, 'catSuperShot', direction);
         this.speed = 250;
         this.body.setSize(16, 18);
+        
         if (direction){
             this.flipX = true;
             this.body.velocity.x = -this.speed;
@@ -111,6 +113,7 @@ export class RegularShotUp extends EnergyShots {
         super(scene, x, y, 'catRegShotUp', direction);
         this.speed = 150;
         this.body.setSize(10,10);
+        
         if (direction){
             this.body.velocity.x = -this.speed;
             this.body.velocity.y = -this.speed;

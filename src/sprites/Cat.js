@@ -18,7 +18,7 @@ export class Cat extends Phaser.GameObjects.Sprite {
 
         //Config
         this.alive = true;
-        this.speed = 115;
+        this.speed = 100;
         this.jumpSpeed = -330;
         this.timerShootDelay = 15;
         this.timerShootTick = this.timerShootDelay - 1;
@@ -252,48 +252,48 @@ export class Cat extends Phaser.GameObjects.Sprite {
         if (key == 'catSuperShot'){
             var energyShot;
             if (this.flipX){
-                energyShot = new SuperEnergyShot(this.scene, this.body.x - 40, this.body.y + 28, true);
+                energyShot = new SuperEnergyShot(this.scene, this.body.x - 20, this.body.y + 14, true);
             } else {
-                energyShot = new SuperEnergyShot(this.scene, this.body.x + 40, this.body.y + 28, false);
+                energyShot = new SuperEnergyShot(this.scene, this.body.x + 20, this.body.y + 14, false);
             }
 
         } else if (key == 'catPowerShotFront'){
             if (this.flipX){
-                energyShot = new PowerEnergyShot(this.scene, this.body.x - 20, this.body.y + 28, true);
+                energyShot = new PowerEnergyShot(this.scene, this.body.x - 20, this.body.y + 14, true);
             } else {
-                energyShot = new PowerEnergyShot(this.scene, this.body.x + 40, this.body.y + 28, false);
+                energyShot = new PowerEnergyShot(this.scene, this.body.x + 20, this.body.y + 14, false);
             }
 
         } else if (key == 'catRegShotFront'){
             if (this.flipX){
-                energyShot = new RegularEnergyShot(this.scene, this.body.x - 30, this.body.y + 28, true);
+                energyShot = new RegularEnergyShot(this.scene, this.body.x - 15, this.body.y + 14, true);
             } else {
-                energyShot = new RegularEnergyShot(this.scene, this.body.x + 50, this.body.y + 28, false);
+                energyShot = new RegularEnergyShot(this.scene, this.body.x + 25, this.body.y + 14, false);
             }
         }
 
         else if (key == 'catRegShotUp'){
             if (this.flipX){
-                energyShot = new RegularShotUp(this.scene, this.body.x , this.body.y + 20, true);
+                energyShot = new RegularShotUp(this.scene, this.body.x , this.body.y + 10, true);
             } else {
-                energyShot = new RegularShotUp(this.scene, this.body.x + 30, this.body.y + 20, false);
+                energyShot = new RegularShotUp(this.scene, this.body.x + 15, this.body.y + 10, false);
             }
 
         } else if (key == 'catSuperShotAir'){
             if (this.flipX){
-                energyShot = new PowerShotUp(this.scene, this.body.x - 12, this.body.y + 7, true);
+                energyShot = new PowerShotUp(this.scene, this.body.x - 6, this.body.y + 3, true);
             } else {
-                energyShot = new PowerShotUp(this.scene, this.body.x + 30, this.body.y + 12, false);
+                energyShot = new PowerShotUp(this.scene, this.body.x + 15, this.body.y + 6, false);
             }
         } else if (key == 'catRegShotDown'){
             if (this.flipX){
-                energyShot = new RegularShotDown(this.scene, this.body.x - 20, this.body.y + 35, true);
+                energyShot = new RegularShotDown(this.scene, this.body.x - 10, this.body.y + 17, true);
             } else {
-                energyShot = new RegularShotDown(this.scene, this.body.x + 45, this.body.y + 35, false);
+                energyShot = new RegularShotDown(this.scene, this.body.x + 23, this.body.y + 17, false);
             }
         } else if (key == 'catTwosideShot'){
-            var energyShotLeft = new RegularEnergyShot(this.scene, this.body.x - 20, this.body.y + 28, true);
-            var energyShotRight = new RegularEnergyShot(this.scene, this.body.x + 35, this.body.y + 28, false);
+            var energyShotLeft = new RegularEnergyShot(this.scene, this.body.x - 10, this.body.y + 14, true);
+            var energyShotRight = new RegularEnergyShot(this.scene, this.body.x + 17, this.body.y + 14, false);
             this.scene.energy.addMultiple([energyShotLeft, energyShotRight]);
         }
 

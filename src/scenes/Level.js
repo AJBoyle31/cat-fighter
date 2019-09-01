@@ -6,10 +6,16 @@ export class Level extends Phaser.Scene {
         
         //console.log(this.energy);
 
-        
+        this.cameras.main.setBounds(0, 0, 800, 640);
+
+        this.cameras.main.startFollow(this.cat, true, 0.5, 0.5);
+        this.cameras.main.setZoom(2);
 
         this.physics.add.collider(this.cat, this.platforms);
         this.physics.add.collider(this.baddie, this.platforms);
+        this.physics.add.collider(this.baddie, this.enemyBoundry, function(){
+            console.log("enemyboundry");
+        });
         this.physics.add.overlap(this.baddie, this.energy, function(baddie, energy){
             console.log('energy hit');
             energy.hit();

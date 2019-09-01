@@ -7,7 +7,7 @@ export class Baddie extends Phaser.GameObjects.Sprite {
 
         this.body.setCollideWorldBounds(true);
         this.health = config.health;
-        
+        this.setScale(0.5);
         this.body.setVelocityX(100);
         this.anims.play('baddieRight', true);
         this.body.setBounce(1,0);
