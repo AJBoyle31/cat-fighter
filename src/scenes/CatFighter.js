@@ -28,31 +28,37 @@ class CatFighter extends Level {
         this.platforms.setCollision([ 0,1,2,42 ]);
         this.enemyBoundry.setCollision([61]);
 
+        
                
         this.cat = new Cat({key: 'cat', scene: this, x: 100, y: 100});
 
         
 
-        this.baddie = new Baddie({key: 'baddie', scene: this, x: 150, y: 100});
+        
 
         this.energy = this.add.group({
             runChildUpdate: true
-            
         });
-   
-        this.initScene(this.cat, this.baddie, this.energy);
+
+        //empty arrary for baddies
+        this.enemies = [];
+
+        //add baddies
+        this.createFromObjects(this.map, 'EnemySpawnPoints');
+        
+        
+        this.initScene(this.cat, this.enemies, this.energy);
     
     }
     
     update(){
     
         this.cat.update();
-        this.baddie.update();
-
-
         
         
     }
+
+    
 
     
 
