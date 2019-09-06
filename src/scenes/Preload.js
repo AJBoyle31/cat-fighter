@@ -8,7 +8,7 @@ class Preload extends Phaser.Scene {
         this.load.atlas('cat', 'src/assets/catFighterSpritesheet.png', 'src/assets/catfightersprites.json');
         this.load.atlas('cat2', 'src/assets/catFighterSpritesheet2.png', 'src/assets/catFighterSpritesheet2.json');
         this.load.atlas('energy', 'src/assets/energySpritesheet.png', 'src/assets/energySpritesheet.json');
-        this.load.atlas('potionsgems', 'src/assets/tileset-16x16.png', 'src/assets/postionsgems.json');
+        this.load.atlas('potionsgems', 'src/assets/tileset-16x16.png', 'src/assets/potionsgems.json');
         this.load.image('sky', 'src/assets/sky.png');
         this.load.image('ground', 'src/assets/platform.png');
         this.load.spritesheet('baddie', 'src/assets/baddie.png', {frameWidth: 32, frameHeight: 32});

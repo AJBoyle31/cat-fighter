@@ -2,12 +2,14 @@ import {Baddie} from '../sprites/Baddie.js';
 
 export class Level extends Phaser.Scene {
        
-    initScene(cat, enemies, energy){
+    initScene(cat, enemies, energy, potions){
         this.cat = cat;
         this.enemies = this.physics.add.group(enemies);
         this.enemies.runChildUpdate = true;
         this.energy = this.add.group(energy);
-        
+        this.potions = this.physics.add.group(potions);
+        ;
+        console.log(this.potions);
         
         //console.log(this.energy);
 
@@ -35,6 +37,10 @@ export class Level extends Phaser.Scene {
             console.log('its a hit');
         
         });
+        this.physics.add.overlap(this.cat, this.potions, function(cat, potion){
+            console.log('potion');
+            potion.destroy();
+        });
     }
 
     update(){
@@ -46,11 +52,27 @@ export class Level extends Phaser.Scene {
     createFromObjects(map, name) {
         let objectLayers = map.objects;
         objectLayers.forEach((ol) => {
-            if (ol.name == name) {
-            ol.objects.forEach((olObject) => {
-                let obj = new Baddie({key: 'baddie', scene: this, x: olObject.x, y: olObject.y});
-                this.enemies.push(obj);
-            });
+            console.log(ol.name);
+            if (ol.name == name){
+                switch(ol.name){
+                    case 'EnemySpawnPoints':
+                        ol.objects.forEach((olObject) => {
+                            let obj = new Baddie({key: 'baddie', scene: this, x: olObject.x, y: olObject.y});
+                            this.enemies.push(obj);
+                        });
+                        break;
+                    case 'PlayerSpawnPoint':
+                        this.cat = new Cat({key: 'cat', scene: this, x: olObject.x, y: olObject.y});
+                        break;
+                    case 'Potions':
+                        ol.objects.forEach((olObject) => {
+                            let obj = this.add.sprite(olObject.x + 8, olObject.y - 8, 'potionsgems', 'greenPotion'); 
+                            this.physics.world.enable(obj);
+                            obj.body.allowGravity = false;
+                            this.potions.push(obj);
+                        });
+                        break;
+                }
             }
         });
     }
