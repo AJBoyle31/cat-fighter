@@ -1,4 +1,5 @@
 import {Baddie} from '../sprites/Baddie.js';
+import {Cat} from '../sprites/Cat.js';
 
 export class Level extends Phaser.Scene {
        
@@ -52,7 +53,6 @@ export class Level extends Phaser.Scene {
     createFromObjects(map, name) {
         let objectLayers = map.objects;
         objectLayers.forEach((ol) => {
-            console.log(ol.name);
             if (ol.name == name){
                 switch(ol.name){
                     case 'EnemySpawnPoints':
@@ -62,7 +62,9 @@ export class Level extends Phaser.Scene {
                         });
                         break;
                     case 'PlayerSpawnPoint':
-                        this.cat = new Cat({key: 'cat', scene: this, x: olObject.x, y: olObject.y});
+                        ol.objects.forEach((olObject) => {
+                            this.cat = new Cat({key: 'cat', scene: this, x: olObject.x, y: olObject.y});
+                        });
                         break;
                     case 'Potions':
                         ol.objects.forEach((olObject) => {

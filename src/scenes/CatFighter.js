@@ -30,7 +30,7 @@ class CatFighter extends Level {
 
         
                
-        this.cat = new Cat({key: 'cat', scene: this, x: 100, y: 100});
+        //this.cat = new Cat({key: 'cat', scene: this, x: 100, y: 100});
 
         //this.potion = this.add.sprite(300, 300, 'potionsgems', 'greenPotion');
 
@@ -45,6 +45,8 @@ class CatFighter extends Level {
 
         //empty array for potions
         this.potions = [];
+
+        this.createFromObjects(this.map, 'PlayerSpawnPoint');
 
         //add baddies
         this.createFromObjects(this.map, 'EnemySpawnPoints');
